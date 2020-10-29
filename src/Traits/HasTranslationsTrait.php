@@ -9,30 +9,32 @@ use Spatie\Translatable\HasTranslations;
 trait HasTranslationsTrait
 {
     use HasTranslations {
-        getAttributeValue as getTranslatableAttributeValue;
+        getTranslation as getTranslatableTranslation;
     }
 
     /**
-     * @param $key
-     * @return mixed
+     * @param string $key
+     * @param string $locale
+     * @param bool $useFallbackLocale
      */
-    public function getAttributeValue($key)
+    public function getTranslation(string $key, string $locale, bool $useFallbackLocale = true)
     {
-        if (!$this->isTranslatableAttribute($key)) {
-            return parent::getAttributeValue($key);
+        if($this->keyHasInjectableCast($key)) {
+            return (new LaravelInjectable())->setBody(
+                self::getTranslatableTranslation($key, $locale, $useFallbackLocale)
+            )->setModel($this);
         }
 
+        return self::getTranslatableTranslation($key, $locale, $useFallbackLocale);
+    }
+
+    private function keyHasInjectableCast($key)
+    {
         $casts = array_merge(
             array_fill_keys($this->getTranslatableAttributes(), 'array'),
             parent::getCasts()
         );
 
-        if (isset($casts[$key]) && $casts[$key] == InjectableCast::class) {
-            return (new LaravelInjectable())->setBody(
-                $this->getTranslation($key, $this->getLocale())
-            )->setModel($this);
-        } else {
-            return $this->getTranslation($key, $this->getLocale());
-        }
+        return isset($casts[$key]) && $casts[$key] == InjectableCast::class;
     }
 }
