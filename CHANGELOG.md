@@ -2,6 +2,6 @@
 
 All notable changes to `laravel-translatable-and-injectable` will be documented in this file
 
-## 1.0.0 - 201X-XX-XX
+## 1.0.0 - 2020-10-29
 
-- initial release
+- The initial release of this package
