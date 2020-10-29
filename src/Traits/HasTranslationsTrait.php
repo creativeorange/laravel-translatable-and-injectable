@@ -22,7 +22,10 @@ trait HasTranslationsTrait
             return parent::getAttributeValue($key);
         }
 
-        $casts = self::getCasts();
+        $casts = array_merge(
+            array_fill_keys($this->getTranslatableAttributes(), 'array'),
+            parent::getCasts()
+        );
 
         if (isset($casts[$key]) && $casts[$key] == InjectableCast::class) {
             return (new LaravelInjectable())->setBody(
