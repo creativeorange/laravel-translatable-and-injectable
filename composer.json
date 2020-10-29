@@ -1,0 +1,47 @@
+{
+    "name": "creativeorange/laravel-translatable-and-injectable",
+    "description": "",
+    "keywords": [
+        "creativeorange",
+        "laravel-translatable-and-injectable"
+    ],
+    "homepage": "https://github.com/creativeorange/laravel-translatable-and-injectable",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jaco Tijssen",
+            "email": "jaco@creativeorange.nl",
+            "homepage": "https://www.creativeorange.nl",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.5",
+        "illuminate/support": "^6|^7|^8",
+        "creativeorange/laravel-injectable": "dev-master",
+        "spatie/laravel-translatable": "^4.5"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Creativeorange\\LaravelTranslatableAndInjectable\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Creativeorange\\LaravelTranslatableAndInjectable\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
