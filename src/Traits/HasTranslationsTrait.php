@@ -12,14 +12,24 @@ trait HasTranslationsTrait
         getAttributeValue as getTranslatableAttributeValue;
     }
 
+    /**
+     * @param $key
+     * @return mixed
+     */
     public function getAttributeValue($key)
     {
-        if (! $this->isTranslatableAttribute($key)) {
+        if (!$this->isTranslatableAttribute($key)) {
             return parent::getAttributeValue($key);
         }
 
-        return (new LaravelInjectable())->setBody(
-            $this->getTranslation($key, $this->getLocale())
-        )->setModel($this);
+        $casts = self::getCasts();
+
+        if (isset($casts[$key]) && $casts[$key] == InjectableCast::class) {
+            return (new LaravelInjectable())->setBody(
+                $this->getTranslation($key, $this->getLocale())
+            )->setModel($this);
+        } else {
+            return $this->getTranslation($key, $this->getLocale());
+        }
     }
 }
