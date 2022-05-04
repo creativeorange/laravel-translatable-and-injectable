@@ -14,6 +14,8 @@ You can install the package via composer:
 composer require creativeorange/laravel-translatable-and-injectable
 ```
 
+For support for Laravel 8 or lower, please install version 1.
+
 ## Usage
 Instead of using HasTranslations on your model use:
 ``` php
